@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from 'prop-types';
 
 class FormFieldText extends Component{
   render() {
@@ -20,5 +21,7 @@ class FormFieldText extends Component{
     );
   }
 }
-
+FormFieldText.propTypes = {
+  field: PropTypes.object,
+};
 export default FormFieldText;

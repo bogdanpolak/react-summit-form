@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from 'prop-types';
 
 class FormFieldEmail extends Component{
     render() {
@@ -21,5 +22,7 @@ class FormFieldEmail extends Component{
         );
         }
 }
-
+FormFieldEmail.propTypes = {
+  field: PropTypes.object,
+};
 export default FormFieldEmail;
