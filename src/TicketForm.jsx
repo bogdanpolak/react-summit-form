@@ -42,7 +42,17 @@ const ticketFormModel = [
 
 class TicketForm extends Component{
   render(){
-    return <Form formModel = {ticketFormModel}/>;
+    return (
+      <section className="container">
+        <Form formModel = {ticketFormModel}/>
+        <div className="react-alert"> 
+          <h3 className="text-center"> ReactJS TicketForm </h3>
+          <p className="text-center">Tutaj kończy się świat dynamicznie generowananego kodu HTML przez <b>ReactJS</b>.</p> 
+          <hr /> 
+          <p className="text-center">Dalej jest tylko klasyczny formularz HTML (wzorzec)</p>  
+        </div>
+      </section>
+    );
   }
 }
 
