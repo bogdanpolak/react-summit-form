@@ -4,7 +4,7 @@ class FormFieldText extends Component{
   render() {
     const field = this.props.field;
     return (
-      <fieldset key={field.name}>
+      <fieldset>
         <label htmlFor={field.name}>
           {field.caption}
         </label>
@@ -17,7 +17,6 @@ class FormFieldText extends Component{
           {field.feedback}
         </div>
       </fieldset>
-    
     );
   }
 }
