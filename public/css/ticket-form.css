@@ -1,0 +1,26 @@
+.section-title {
+    color: rgb(0,110,40);
+    border-bottom: 3px solid rgb(200,230,210); 
+    padding-bottom: 1px; 
+    margin-bottom: 20px;
+}
+#form-ticket .form-section { 
+    border-bottom: 5px solid #f0c000; 
+    padding-bottom: 5px; 
+    margin-bottom: 15px; 
+    margin-top: 20px;
+}
+#form-ticket label {
+    margin-top: 0.3em;
+    margin-bottom: 0em;
+}
+button[type=submit] .default-submit {
+    font-weight: normal;
+}
+button[type=submit] .busy-submit {
+    display: none;
+}
+#confirmation-box {display: none;}
+    .confirm-list {padding-left: 0;}
+    .confirm-list li {list-style: none;}
+    .confirm-list span { margin-left: 1em; }
