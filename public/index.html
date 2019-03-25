@@ -2,17 +2,219 @@
 <html>
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>React Starter</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- ------------------------------------------- -->
+	<!-- Simple Line Icons CSS (font + style) -->
+	<link rel="stylesheet" 
+		href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" 
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+		crossorigin="anonymous">
+	<!-- Custom CSS -->
+	<style type="text/css">
+		.section-title {
+			color: rgb(0,110,40);
+			border-bottom: 3px solid rgb(200,230,210); 
+			padding-bottom: 1px; 
+			margin-bottom: 20px;
+		}
+		#form-ticket .form-section { 
+			border-bottom: 5px solid #f0c000; 
+			padding-bottom: 5px; 
+			margin-bottom: 15px; 
+			margin-top: 20px;
+		}
+		#form-ticket label {
+			margin-top: 0.3em;
+			margin-bottom: 0em;
+		}
+		button[type=submit] .default-submit {
+			font-weight: normal;
+		}
+		button[type=submit] .busy-submit {
+			display: none;
+		}
+		#confirmation-box {display: none;}
+			.confirm-list {padding-left: 0;}
+			.confirm-list li {list-style: none;}
+			.confirm-list span { margin-left: 1em; }
+	</style>
+<!-- ------------------------------------------- -->
+	<title>React - Bilety Zlot 2019</title>
+
 </head>
 
 <body>
-  <div id="root"></div>
-  <noscript>
-    You need to enable JavaScript to run this app.
-  </noscript>
-  <script src="../dist/bundle.js"></script>
+	<section class="container-fluid summit-header" style="text-align: center; margin-bottom: 40px;">
+		<div style="padding-top: 10px;"> <img src="img/zlot_logo_blue_2x.png" width="200" height="68"> </div>
+		<h1 class="section-header"> Zlot Programistów Delphi 2019 </h1>
+		<h5 class="text-muted"> 4-5 czerwca 2019, Mszczonów </h5>
+	</section>
+	
+	<section class="jumbotron py-3 text-center" id="kup-bilety">
+		<div class="container">
+			<h1 class="jumbotron-heading"><i class="icon-note"></i> Kup bilety </h1>
+			<div class="h5">Zarejestruj udział firmy / udział indywidualny w zlocie i kup bilety</div>
+		</div>
+	</section>
+	
+	<div id="root"></div>
+
+	<section class="container">
+		<form id="form-ticket" class="needs-validation" novalidate>
+			<div class="h6 form-section">Osoba rejestrujaca:</div>
+			<div class="form-row">
+				<fieldset class="col-sm-6">
+					<label for="person">Imię i nazwisko</label>
+					<input type="text" class="form-control" id="person" name="person" value="" required>
+					<div class="invalid-feedback">Proszę wprowadzić imię i nazwisko</div>
+				</fieldset>
+				<fieldset class="col-sm-6">
+					<label for="position">Stanowisko</label>
+					<input type="text" class="form-control" id="position" name="position" value="" required>
+					<div class="invalid-feedback">Proszę wprowadzić stanowisko</div>
+				</fieldset>
+			</div>
+			<div class="form-row">
+				<fieldset class="col-sm-6">
+					<label for="email">Email</label>
+					<input type="email" class="form-control" id="email" name="email" value="" required>
+					<div class="invalid-feedback">Proszę wprowadzić adres email</div>
+				</fieldset>
+				<fieldset class="col-sm-6">
+					<label for="phone">Telefon (najlepiej mobilny)</label>
+					<input type="text" class="form-control" id="phone" name="phone" value="" required>
+					<div class="invalid-feedback">Proszę wprowadzić nr telefonu</div>
+				</fieldset>
+			</div>
+			<div class="h6 form-section">Bilety:</div>
+			<div class="form-row">
+				<!-- =========================================== -->
+				<!-- =========================================== -->
+				<!-- Tutaj ustaw cenę biletu: value -->
+				<input type="hidden" id="ticketValue" name="ticketValue" value="690">
+				<!-- =========================================== -->
+				<!-- =========================================== -->
+				<fieldset class="col-sm-3">
+					<label for="duration">Liczba biletów</label>
+					<select class="form-control" id="tickets" name="tickets">
+						<option value="1" selected>1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+					</select>
+				</fieldset>
+				<div class="col-sm-9 mt-sm-3">
+					<p class="mb-0">Koszt całkowity netto</p>
+					<h5 class="mt-0"><span id="totalTicketValue"></span> zł</h5>
+				</div>
+			</div>
+			<div class="h6 form-section">Dane do faktury:</div>
+			<div class="form-row">
+				<fieldset class="col-sm-6">
+					<label for="company">Nazwa firmy</label>
+					<input type="text" class="form-control" id="company" name="company" value="" required>
+					<div class="invalid-feedback">Proszę wprowadzić nazwę firmy lub imię i nazwisko w przypadku osoby prywatnej</div>
+				</fieldset>
+				<fieldset class="col-sm-6">
+					<label for="address">Adres</label>
+					<input type="text" class="form-control" id="address" name="address" value="" required>
+					<div class="invalid-feedback">Proszę wprowadzić adres firmy</div>
+				</fieldset>
+			</div>
+			<div class="form-row">
+				<fieldset class="col-sm-6">
+					<label for="postal-code">Kod pocztowy</label>
+					<input class="form-control" id="postalCode" name="postalCode" type="text" value="" required>
+					<div class="invalid-feedback">Proszę wprowadzić kod pocztowy</div>
+				</fieldset>
+				<fieldset class="col-sm-6">
+					<label for="city">Miasto</label>
+					<input type="text" class="form-control" id="city" name="city" value="" required>
+					<div class="invalid-feedback">Proszę wprowadzić miasto</div>
+				</fieldset>
+			</div>
+			<div class="form-row">
+				<fieldset class="col-sm-6">
+					<label for="nip">NIP</label>
+					<input type="text" class="form-control" id="nip" name="nip" value="" required>
+					<div class="invalid-feedback">Proszę wprowadzić NIP firmy lub n/d w przypadku osoby prywatnej</div>
+				</fieldset>
+			</div>
+	
+			<div class="form-group mt-2">
+				<div class="form-check">
+					<input class="form-check-input mt-2" type="checkbox" value="" id="giodo_agree"  name="giodo_agree" required>
+	
+					<label class="form-check-label" for="giodo_agree">
+						Zgoda na przetwarzanie danych.
+					</label>
+					<div class="invalid-feedback mb-2">
+						Pole musi zostać zaznaczone. Bez zgody na przetwarzanie danych osobowych nie możemy przyjać Państwa rejestracji.
+					</div>
+					<div class="small">
+						Wyrażam zgodę na przetwarzanie moich danych osobowych w celach marketingowych. Wyrażam zgodę na otrzymywanie od BSC Polska Sp. z o.o, informacji handlowych dotyczących produktów i usług oferowanych przez firmę. Zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (RODO/GDPR).
+					</div>
+				</div>
+			</div>
+			<div class="text-center px-5">
+				<button class="btn btn-primary col-sm-6" type="submit">
+					<span class="default-submit">Zarejestruj się</span>
+					<span class="busy-submit"> <div class="spinner-border spinner-border-sm"></div> Trwa zgłaszanie...</span>
+				</button>
+			</div>
+		</form>
+	</section>
+	
+	<section id="confirmation-box" class="container">
+		<div class="alert alert-success" role="alert">
+			<h4 class="alert-heading">Rejestracja na zlot została przyjęta</h4>
+			<hr>
+			<p>Na adres email <b><span id="out-email"></span></b> zostało wysłane potwierdzenie oraz faktura pro-forma. Prosimy o szybkie jej opłacenie. </p>
+			<p>W przypadku nie otrzymania potwierdzającej wiadomości w ciągu kilku godzin prosimy o zgłoszenie tego naszemu zespołowi.</p>
+			<hr>
+			<ul class="confirm-list">
+				<li><strong>Imię i nazwisko</strong>:<span id="out-person"></span></li>
+				<li><strong>Bilety</strong>:<span id="out-tickets"></span> x <span id="out-ticketValue"></span></li>
+				<li><strong>Firma</strong>:<span id="out-company"></span></li>
+				<li><strong>NIP</strong>:<span id="out-nip"></span></li>
+				<li><strong>Kod rejestracji</strong>:<span id="out-hash"></span></li>
+			</ul>
+		</div>
+	</section>
+
+	<footer class="mt-5 py-3 text-center bg-dark text-white">
+		(c) 2019 BSC Polska
+	</footer>
+		
+	<noscript> You need to enable JavaScript to run this app. </noscript>
+	
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<!--
+	<script src="http://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+		-->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" 
+		crossorigin="anonymous"></script>
+	<!--
+	<script src="./assets/js/bootstrap-4.3.1/bootstrap.min.js"></script>
+	-->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+		crossorigin="anonymous"></script>
+	<!-- *********************** -->
+	<script src="../dist/bundle.js"></script>
 </body>
 
 </html>
