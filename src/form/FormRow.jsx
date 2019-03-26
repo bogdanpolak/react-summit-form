@@ -4,13 +4,15 @@ import FormFieldText from "./FormFieldText.jsx";
 import FormFieldEmail from "./FormFieldEmail.jsx";
 import FormFieldExtTicketCounter from "./FormFieldExtTicketCounter.jsx";
 
+const ticketValue = 699;
+
 class FormRow extends Component{
   __renderField (field) {
     let fd;
     if (field.fieldType === "email") {
       fd = <FormFieldEmail field={field}/>
     } else if (field.fieldType === "ext-ticket-counter") {
-      fd = <FormFieldExtTicketCounter field={field}/>
+      fd = <FormFieldExtTicketCounter field={field} ticketValue={ticketValue}/>
     } else {
       fd = <FormFieldText field={field}/>
     }

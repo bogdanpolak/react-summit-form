@@ -12,12 +12,26 @@ export default class FormFieldExtTicketCounter extends Component {
         totalName: "totalTicketValue",
         totalCaption: "Koszt całkowity netto"
     }] */
+  constructor(props) {
+    super(props)
+    this.state = {
+      value: 1,
+      totalValue: props.ticketValue
+    }
+  }
+  selectOnChange(ev){
+    this.setState({
+      value: ev.target.value,
+      totalValue: this.props.ticketValue * ev.target.value
+    });
+  }
   render() {
     const field = this.props.field;
     return [
       <fieldset key="A" className="col-sm-3">
         <label htmlFor={field.name}>{field.caption}</label>
-        <select className="form-control" id="{field.name}" name="{field.name}">
+        <select className="form-control" id="{field.name}" name="{field.name}"
+          onChange={this.selectOnChange.bind(this)} value={this.state.value}>
           <option defaultValue="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -26,14 +40,15 @@ export default class FormFieldExtTicketCounter extends Component {
           <option value="6">6</option>
         </select>
       </fieldset>,
-      <div key="B" className="col-sm-9 mt-sm-3">
+      <div key="B" className="col-sm-9 mt-3">
         <p className="mb-0">{field.totalCaption}</p>
-        <h5 className="mt-0"><span id={field.totalName}></span> zł</h5>
+        <h5 className="mt-0"><span id={field.totalName}>{this.state.totalValue}</span> zł</h5>
       </div>
     ]
   }
 }
 FormFieldExtTicketCounter.propTypes = {
+  ticketValue: PropTypes.number,
   field: PropTypes.shape({
     fieldType: PropTypes.oneOf(['ext-ticket-counter']),
     name: PropTypes.string,
