@@ -13,6 +13,6 @@ class Form extends Component{
   }
 }
 Form.propTypes = {
-  formModel: PropTypes.object,
+  formModel: PropTypes.array,
 };
 export default Form;
