@@ -22,11 +22,11 @@ const ticketFormModel = [
   },{ 
     rowType: "2col-input",
     fields: [{
+      fieldType: "email",
       name: "email", 
       caption: "Email", 
       feedback: "Proszę wprowadzić adres email",
       // <input type="email" />
-      inputType: "email",
       isRequired: true
     },{
       name: "phone", 
@@ -37,6 +37,17 @@ const ticketFormModel = [
   },{ 
     rowType: "section",
     title: "Bilety" 
+  },{ 
+    rowType: "1col-input",
+    fields: [{
+      fieldType: "ext-ticket-counter",
+      name: "tickets",
+      caption: "Liczba biletów",
+      valueRange: {min:1, max:7},
+      ticketValue: 799,
+      totalName: "totalTicketValue",
+      totalCaption: "Koszt całkowity netto"
+    }]
   }
 ]; 
 
@@ -44,7 +55,7 @@ class TicketForm extends Component{
   render(){
     return (
       <section className="container">
-        <Form formModel = {ticketFormModel}/>
+        <Form formModel={ticketFormModel}/>
         <div className="react-alert"> 
           <h3 className="text-center"> ReactJS TicketForm </h3>
           <p className="text-center">Tutaj kończy się świat dynamicznie generowananego kodu HTML przez <b>ReactJS</b>.</p> 
