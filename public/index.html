@@ -13,8 +13,22 @@
 		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
 		crossorigin="anonymous">
+	<link rel="stylesheet" href="./css/form-factory.css">
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="./css/ticket-form.css">
+	<style>
+	.react-alert {
+		margin-top: 1rem;
+		color: #856404;
+		background-color: #fff3cd;
+		border-color: #ffeeba;
+		position: relative;
+		padding: .75rem 1.25rem;
+		margin-bottom: 1rem;
+		border: 1px solid transparent;
+		border-radius: .25rem;
+	}
+	</style>
 	<!-- --- -->
 	<title>React - Bilety Zlot 2019</title>
 </head>
@@ -35,8 +49,18 @@
 	</section>
 	-->
 	
-	<div id="root"></div>
+	<section class="container" id="buy-ticket-section">
+	</section>
 
+	<section class="container">
+		<div class="react-alert"> 
+			<h3 class="text-center"> ReactJS TicketForm </h3>
+			<p class="text-center">Tutaj kończy się świat dynamicznie generowananego kodu HTML przez <b>ReactJS</b>.</p> 
+			<hr /> 
+			<p class="text-center">Dalej jest tylko klasyczny formularz HTML (wzorzec)</p>  
+		</div>
+	</section>
+	
 	<section class="container">
 		<form id="form-ticket" class="needs-validation" novalidate>
 			<div class="h6 form-section">Osoba rejestrujaca:</div>
@@ -189,6 +213,62 @@
 		crossorigin="anonymous"></script>
 	<!-- *********************** -->
 	<script src="../dist/bundle.js"></script>
+	<!-- *********************** -->
+	<script>
+		$( document ).ready(function() {
+			const ticketFormDefinition = {
+				formID: "form-ticket",
+				model : [{ 
+					rowType: "section",
+					title: "Osoba rejestrujaca" 
+				},{ 
+					rowType: "2col-input",
+					fields: [{
+						name: "person", 
+						caption: "Imię i nazwisko", 
+						feedback: "Proszę wprowadzić imię i nazwisko",
+						isRequired: true
+					},{
+						name: "position", 
+						caption: "Stanowisko", 
+						feedback: "Proszę wprowadzić stanowisko",
+						isRequired: true
+					}]
+				},{ 
+					rowType: "2col-input",
+					fields: [{
+						fieldType: "email",
+						name: "email", 
+						caption: "Email", 
+						feedback: "Proszę wprowadzić adres email",
+						// <input type="email" />
+						isRequired: true
+					},{
+						name: "phone", 
+						caption: "Telefon (najlepiej mobilny)", 
+						feedback: "Proszę wprowadzić nr telefonu",
+						isRequired: true
+					}]
+				},{ 
+					rowType: "section",
+					title: "Bilety" 
+				},{ 
+					rowType: "1col-input",
+					fields: [{
+						fieldType: "ext-ticket-counter",
+						name: "tickets",
+						caption: "Liczba biletów",
+						valueRange: {min:1, max:7},
+						ticketValue: 799,
+						totalName: "totalTicketValue",
+						totalCaption: "Koszt całkowity netto"
+					}]
+				}] 
+			}
+			formRederer.generate("buy-ticket-section",ticketFormDefinition);	
+		});
+	</script>
+	<!-- *********************** -->
 </body>
 
 </html>
