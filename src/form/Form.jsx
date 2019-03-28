@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import FormFieldText from "./FieldText.jsx";
 import FormFieldEmail from "./FieldEmail.jsx";
-import FormFieldExtTicketCounter from "./FieldExtTickets.jsx";
+import FieldExtTickets from "./FieldExtTickets.jsx";
 import FieldAgreeGDPR from "./FieldAgreeGDPR.jsx";
 
 
@@ -16,9 +16,6 @@ export default class Form extends Component{
         break
       case "email":
         fd = <FormFieldEmail field={field}/>
-        break
-      case "ext-ticket-counter":
-        fd = <FormFieldExtTicketCounter field={field}/>
         break
     }
     return fd
@@ -50,14 +47,14 @@ export default class Form extends Component{
               {this.renderTwoColumns(row.fields)}
             </div>
           )
-        case "form-row":
-          return Array.isArray(row.fields) && 
-            (row.fields.length>0) &&
-            (
-              <div key={key} className="form-row">
-                {this.renderFormField (row.fields[0])}
-              </div>
-            )
+        case "ext-tickets":
+          return (
+            <FieldExtTickets 
+              key={key}
+              ticketValue={row.ticketValue}
+              select={row.select}
+              total={row.total} />
+          )
         case "confirm-gdpr":
           return (
             <FieldAgreeGDPR 
