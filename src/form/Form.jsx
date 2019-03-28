@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import FormFieldText from "./FieldText.jsx";
 import FormFieldEmail from "./FieldEmail.jsx";
 import FormFieldExtTicketCounter from "./FieldExtTickets.jsx";
+import FieldAgreeGDPR from "./FieldAgreeGDPR.jsx";
 
-class Form extends Component{
+
+export default class Form extends Component{
+
   renderFormField (field) {
     var fd;
     switch (field.fieldType) {
@@ -21,39 +24,59 @@ class Form extends Component{
     return fd
   }
   
-  render() {
-    const model = this.props.formModel;
+  renderTwoColumns(fields) {
+    return fields.map ( 
+      (fld,idx) => (
+        <div className="col-sm-6" key={idx.toString()}>
+          {this.renderFormField (fld)}
+        </div> 
+      )
+    )
+  }
 
-    var rows = model.map((row,idx)=> {
+  render() {
+    var rows = this.props.formModel.map((row,idx)=> {
       var key = idx.toString();
-      var columns;
       switch (row.rowType) {
+        case "section":
+          return (
+            <div key={key} className="h6 form-section"> 
+              {row.title}:
+            </div>
+          )
+        case "two-columns":
+          return (
+            <div key={key} className="form-row">
+              {this.renderTwoColumns(row.fields)}
+            </div>
+          )
         case "form-row":
           return Array.isArray(row.fields) && 
             (row.fields.length>0) &&
-            (<div className="form-row" key={key}>
-              {this.renderFormField (row.fields[0])}
-            </div>)
-        case "two-columns":
-          columns = row.fields.map ( 
-            (fld,idx2) => (<div className="col-sm-6" key={idx2.toString()}>
-            {this.renderFormField (fld)}
-          </div> ))
+            (
+              <div key={key} className="form-row">
+                {this.renderFormField (row.fields[0])}
+              </div>
+            )
+        case "confirm-gdpr":
           return (
-            <div className="form-row" key={key}>
-              {columns}
-            </div>
+            <FieldAgreeGDPR 
+              key={key}
+              checkboxId={row.name} 
+              isRequired={row.isRequired} />
           )
-        case "section":
-          return <div className="h6 form-section" key={key}>{row.title}:</div>
       }
     })
-    return <form id={this.props.formID} className="needs-validation" noValidate>
-      {rows} </form>
+    return (
+      <form id={this.props.formID} className="needs-validation" noValidate>
+        {rows} 
+      </form>
+    )
   }
+
 }
+
 Form.propTypes = {
   formID: PropTypes.string,
   formModel: PropTypes.array,
 };
-export default Form;

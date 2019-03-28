@@ -29,7 +29,7 @@ export default class FormFieldExtTicketCounter extends Component {
     const field = this.props.field;
     return [
       <fieldset key="A" className="col-sm-3">
-        <label htmlFor={field.name}>{field.caption}</label>
+        <label htmlFor={field.name} className="m-0">{field.caption}</label>
         <select className="form-control" id="{field.name}" name="{field.name}"
           onChange={this.selectOnChange.bind(this)} value={this.state.value}>
           <option defaultValue="1">1</option>
