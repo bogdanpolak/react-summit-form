@@ -17,6 +17,18 @@ export default class Form extends Component{
               {row.title}:
             </div>
           )
+        case "one-column":
+          return (
+            <div key={key} className="form-row">
+              <FormFieldText 
+                type = {row.field.fieldType}
+                id = {row.field.name}
+                caption = {row.field.caption}
+                feedback = {row.field.feedback}
+                isRequired = {row.field.isRequired}
+              />
+            </div>
+          )
         case "two-columns":
           return (
             <div key={key} className="form-row">

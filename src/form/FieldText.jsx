@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default class FieldText extends Component{
   render() {
     return (
-      <fieldset className="mt-1">
+      <fieldset className="mt-1 w-100">
         <label 
           className="mt-2 m-0" 
           htmlFor={this.props.id}>
