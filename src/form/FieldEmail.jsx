@@ -5,9 +5,9 @@ class FormFieldEmail extends Component{
     render() {
         const field = this.props.field;
         return (
-          <fieldset>
-            <label htmlFor={field.name}>
-              {field.caption}
+          <fieldset className="mt-1">
+          <label className="mt-2 m-0" htmlFor={field.name}>
+                {field.caption}
             </label>
             <input type="email" 
               className="form-control" 

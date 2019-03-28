@@ -5,8 +5,8 @@ class FormFieldText extends Component{
   render() {
     const field = this.props.field;
     return (
-      <fieldset>
-        <label htmlFor={field.name}>
+      <fieldset className="mt-1">
+        <label className="mt-2 m-0" htmlFor={field.name}>
           {field.caption}
         </label>
         <input type="text" 

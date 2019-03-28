@@ -4,10 +4,6 @@ form .form-section {
     margin-bottom: 15px; 
     margin-top: 20px;
 }
-form label {
-    margin-top: 0.3em;
-    margin-bottom: 0em;
-}
 form button[type=submit] .default-submit {
     font-weight: normal;
 }
