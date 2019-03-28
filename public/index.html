@@ -222,20 +222,22 @@
 					rowType: "section",
 					title: "Osoba rejestrujaca" 
 				},{ 
-					rowType: "2col-input",
+					rowType: "two-columns",
 					fields: [{
+						fieldType: "text",
 						name: "person", 
 						caption: "Imię i nazwisko", 
 						feedback: "Proszę wprowadzić imię i nazwisko",
 						isRequired: true
 					},{
+						fieldType: "text",
 						name: "position", 
 						caption: "Stanowisko", 
 						feedback: "Proszę wprowadzić stanowisko",
 						isRequired: true
 					}]
 				},{ 
-					rowType: "2col-input",
+					rowType: "two-columns",
 					fields: [{
 						fieldType: "email",
 						name: "email", 
@@ -244,6 +246,7 @@
 						// <input type="email" />
 						isRequired: true
 					},{
+						fieldType: "text",
 						name: "phone", 
 						caption: "Telefon (najlepiej mobilny)", 
 						feedback: "Proszę wprowadzić nr telefonu",
@@ -253,7 +256,7 @@
 					rowType: "section",
 					title: "Bilety" 
 				},{ 
-					rowType: "1col-input",
+					rowType: "form-row",
 					fields: [{
 						fieldType: "ext-ticket-counter",
 						name: "tickets",
@@ -263,7 +266,49 @@
 						totalName: "totalTicketValue",
 						totalCaption: "Koszt całkowity netto"
 					}]
-				}] 
+				},{ 
+					rowType: "section",
+					title: "Dane do faktury" 
+				},{ 
+					rowType: "two-columns",
+					fields: [{
+						fieldType: "text",
+						name: "company", 
+						caption: "Nazwa firmy", 
+						feedback: "Proszę wprowadzić nazwę firmy lub imię i nazwisko w przypadku osoby prywatnej",
+						isRequired: true
+					},{
+						fieldType: "text",
+						name: "address", 
+						caption: "Adres", 
+						feedback: "Proszę wprowadzić adres firmy",
+						isRequired: true
+					}]
+				},{ 
+					rowType: "two-columns",
+					fields: [{
+						fieldType: "text",
+						name: "postalCode", 
+						caption: "Kod pocztowy", 
+						feedback: "Proszę wprowadzić kod pocztowy",
+						isRequired: true
+					},{
+						fieldType: "text",
+						name: "city", 
+						caption: "Miasto", 
+						feedback: "Proszę wprowadzić miasto",
+						isRequired: true
+					}]
+				},{ 
+					rowType: "two-columns",
+					fields: [{
+						fieldType: "text",
+						name: "nip", 
+						caption: "NIP", 
+						feedback: "Proszę wprowadzić NIP firmy lub n/d w przypadku osoby prywatnej",
+						isRequired: true
+					}]
+				}]
 			}
 			formRederer.generate("buy-ticket-section",ticketFormDefinition);	
 		});

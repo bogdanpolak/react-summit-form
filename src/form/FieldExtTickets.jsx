@@ -16,13 +16,13 @@ export default class FormFieldExtTicketCounter extends Component {
     super(props)
     this.state = {
       value: 1,
-      totalValue: props.ticketValue
+      totalValue: props.field.ticketValue
     }
   }
   selectOnChange(ev){
     this.setState({
       value: ev.target.value,
-      totalValue: this.props.ticketValue * ev.target.value
+      totalValue: this.props.field.ticketValue * ev.target.value
     });
   }
   render() {
@@ -48,7 +48,6 @@ export default class FormFieldExtTicketCounter extends Component {
   }
 }
 FormFieldExtTicketCounter.propTypes = {
-  ticketValue: PropTypes.number,
   field: PropTypes.shape({
     fieldType: PropTypes.oneOf(['ext-ticket-counter']),
     name: PropTypes.string,
