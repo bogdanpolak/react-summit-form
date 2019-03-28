@@ -15,6 +15,19 @@
 		crossorigin="anonymous">
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="./css/ticket-form.css">
+	<style>
+	.react-alert {
+		margin-top: 1rem;
+		color: #856404;
+		background-color: #fff3cd;
+		border-color: #ffeeba;
+		position: relative;
+		padding: .75rem 1.25rem;
+		margin-bottom: 1rem;
+		border: 1px solid transparent;
+		border-radius: .25rem;
+	}
+	</style>
 	<!-- --- -->
 	<title>React - Bilety Zlot 2019</title>
 </head>
@@ -35,8 +48,19 @@
 	</section>
 	-->
 	
-	<div id="root"></div>
+	<section class="container">
+		<div id="ticket-form"></div>
+	</section>
 
+	<section class="container">
+		<div class="react-alert"> 
+			<h3 class="text-center"> ReactJS TicketForm </h3>
+			<p class="text-center">Tutaj kończy się świat dynamicznie generowananego kodu HTML przez <b>ReactJS</b>.</p> 
+			<hr /> 
+			<p class="text-center">Dalej jest tylko klasyczny formularz HTML (wzorzec)</p>  
+		</div>
+	</section>
+	
 	<section class="container">
 		<form id="form-ticket" class="needs-validation" novalidate>
 			<div class="h6 form-section">Osoba rejestrujaca:</div>
@@ -189,6 +213,13 @@
 		crossorigin="anonymous"></script>
 	<!-- *********************** -->
 	<script src="../dist/bundle.js"></script>
+	<!-- *********************** -->
+	<script>
+		$( document ).ready(function() {
+			
+		});
+	</script>
+	<!-- *********************** -->
 </body>
 
 </html>
