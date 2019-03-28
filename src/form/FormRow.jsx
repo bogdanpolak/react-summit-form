@@ -7,37 +7,36 @@ import FormFieldExtTicketCounter from "./FormFieldExtTicketCounter.jsx";
 const ticketValue = 699;
 
 class FormRow extends Component{
-  __renderField (field) {
-    let fd;
-    if (field.fieldType === "email") {
-      fd = <FormFieldEmail field={field}/>
-    } else if (field.fieldType === "ext-ticket-counter") {
-      fd = <FormFieldExtTicketCounter field={field} ticketValue={ticketValue}/>
-    } else {
-      fd = <FormFieldText field={field}/>
+  renderFormField (field) {
+    var fd;
+    switch (field.fieldType) {
+      case "text":
+        fd = <FormFieldText field={field}/>
+        break
+      case "email":
+        fd = <FormFieldEmail field={field}/>
+        break
+      case "ext-ticket-counter":
+        fd = <FormFieldExtTicketCounter field={field} ticketValue={ticketValue}/>
+        break
     }
     return fd
-  }
-  __renderRowWithOneColumn (field) {
-    return <div className="form-row">{this.__renderField (field)}</div> 
-  }
-  __renderRowWithTwoColumns (fields) {
-    const columns = fields.map ( (field,idx) => {
-      return (
-        <div className="col-sm-6" key={idx.toString()}>
-          {this.__renderField (field)}
-        </div>
-      )});
-    return <div className="form-row">{columns}</div> 
   }
   render() {
     const rowType = this.props.row.rowType;
     var rowDOM;
-    if (rowType === "1col-input") {
-      if (this.props.row.fields instanceof Array)
-        rowDOM = this.__renderRowWithOneColumn (this.props.row.fields[0])
-    } else if (rowType === "2col-input") {
-      rowDOM = this.__renderRowWithTwoColumns (this.props.row.fields)
+    if (rowType === "form-row") {
+      rowDOM = (Array.isArray(this.props.row.fields)) && 
+        (this.props.row.fields.length>0) &&
+        (<div className="form-row">
+          {this.renderFormField (this.props.row.fields[0])}
+        </div>)
+    } else if (rowType === "two-columns") {
+      const cols = this.props.row.fields.map ( (fld,idx) =>
+        <div className="col-sm-6" key={idx.toString()}>
+          {this.renderFormField (fld)}
+        </div> );
+      rowDOM = <div className="form-row">{cols}</div>
     } else if (rowType === "section") {
       rowDOM = <div className="h6 form-section">{this.props.row.title}:</div>
     }
