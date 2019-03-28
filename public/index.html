@@ -13,6 +13,7 @@
 		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
 		crossorigin="anonymous">
+	<link rel="stylesheet" href="./css/form-factory.css">
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="./css/ticket-form.css">
 	<style>
@@ -48,8 +49,7 @@
 	</section>
 	-->
 	
-	<section class="container">
-		<div id="ticket-form"></div>
+	<section class="container" id="buy-ticket-section">
 	</section>
 
 	<section class="container">
@@ -215,8 +215,104 @@
 	<script src="../dist/bundle.js"></script>
 	<!-- *********************** -->
 	<script>
+			const sampleModel = [{ 
+					rowType: "section",
+					title: "Osoba rejestrujaca" 
+				},{ 
+					rowType: "2col-input",
+					fields: [{
+						name: "person", 
+						caption: "Imię i nazwisko", 
+						feedback: "Proszę wprowadzić imię i nazwisko",
+						isRequired: true
+					},{
+						name: "position", 
+						caption: "Stanowisko", 
+						feedback: "Proszę wprowadzić stanowisko",
+						isRequired: true
+					}]
+				},{ 
+					rowType: "2col-input",
+					fields: [{
+						fieldType: "email",
+						name: "email", 
+						caption: "Email", 
+						feedback: "Proszę wprowadzić adres email",
+						// <input type="email" />
+						isRequired: true
+					},{
+						name: "phone", 
+						caption: "Telefon (najlepiej mobilny)", 
+						feedback: "Proszę wprowadzić nr telefonu",
+						isRequired: true
+					}]
+				},{ 
+					rowType: "section",
+					title: "Bilety" 
+				},{ 
+					rowType: "1col-input",
+					fields: [{
+						fieldType: "ext-ticket-counter",
+						name: "tickets",
+						caption: "Liczba biletów",
+						valueRange: {min:1, max:7},
+						ticketValue: 799,
+						totalName: "totalTicketValue",
+						totalCaption: "Koszt całkowity netto"
+					}]
+				}] 
 		$( document ).ready(function() {
-			
+			const ticketFormDefinition = {
+				formID: "form-ticket",
+				model : [{ 
+					rowType: "section",
+					title: "Osoba rejestrujaca" 
+				},{ 
+					rowType: "2col-input",
+					fields: [{
+						name: "person", 
+						caption: "Imię i nazwisko", 
+						feedback: "Proszę wprowadzić imię i nazwisko",
+						isRequired: true
+					},{
+						name: "position", 
+						caption: "Stanowisko", 
+						feedback: "Proszę wprowadzić stanowisko",
+						isRequired: true
+					}]
+				},{ 
+					rowType: "2col-input",
+					fields: [{
+						fieldType: "email",
+						name: "email", 
+						caption: "Email", 
+						feedback: "Proszę wprowadzić adres email",
+						// <input type="email" />
+						isRequired: true
+					},{
+						name: "phone", 
+						caption: "Telefon (najlepiej mobilny)", 
+						feedback: "Proszę wprowadzić nr telefonu",
+						isRequired: true
+					}]
+				},{ 
+					rowType: "section",
+					title: "Bilety" 
+				},{ 
+					rowType: "1col-input",
+					fields: [{
+						fieldType: "ext-ticket-counter",
+						name: "tickets",
+						caption: "Liczba biletów",
+						valueRange: {min:1, max:7},
+						ticketValue: 799,
+						totalName: "totalTicketValue",
+						totalCaption: "Koszt całkowity netto"
+					}]
+				}] 
+			}
+			// -----
+			// formRederer.generate("buy-ticket-section",ticketFormDefinition);	
 		});
 	</script>
 	<!-- *********************** -->
