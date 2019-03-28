@@ -3,27 +3,41 @@ import ReactDOM from "react-dom";
 import Form from "./form/Form.jsx";
 
 const formRederer = {
-	validate: function (sectionID, rootElem, definition) {
-		var v1 = sectionID && (typeof sectionID === "string");
-		!v1 && console.error ("param1: sectionID string paramerer is required");
-		var v2 = (rootElem !== null);
-		!v2 && console.error ("param1: sectionID has to be proper id of the HTML element");
-		var v3 = (typeof definition === "object");
-		!v3 && console.error ("param2: formDefinition has to be object");
-		var v4 = v3 && typeof definition.formID === "string"
-		!v4 && console.error ("param2: formDefinition has to be object with string field [formDefinition.formID]");
-		var v5 = v3 && Array.isArray(definition.model)
-		!v5 && console.error ("param2: formDefinition has to be object with array field [formDefinition.model]");
-		// TODO: Test schema of def object
-		return v1 && v2 && v3 && v4 && v5;
+	validator: {
+		errorMessageList: [],
+		init: function(){
+			this.errorMessageList = [];
+		},
+		logError: function (msg) {
+			this.errorMessageList.push(msg);
+		},
+		validate: function (sectionID, rootElem, definition) {
+			var v1 = (typeof sectionID === "string") || this.logError (
+				"param1: sectionID string paramerer is required");
+			var v2 = (rootElem !== null) || this.logError (
+				"param1: sectionID has to be proper id of the HTML element");
+			var v3 = (typeof definition === "object") || this.logError (
+				"param2: formDefinition has to be object");
+			var v4 = v3 && (typeof definition.formID === "string" || this.logError (
+				"param2: formDefinition.formID: string is required"));
+			var v5 = v3 && (Array.isArray(definition.model) ||  this.logError (
+				"param2: formDefinition.model: Array is required"));
+			return v1 && v2 && v3 && v4 && v5;
+		},
+	},
+	reportErrors: function(errors) {
+		return errors.map ( (msg) => console.error(msg) )
 	},
 	generate: function (sectionID, formDefinition) {
+		this.validator.init();
 		const elem = document.getElementById(sectionID);
-		if (this.validate (sectionID, elem, formDefinition)) {
+		if (this.validator.validate (sectionID, elem, formDefinition)) {
 			ReactDOM.render( <Form 
 				formID={formDefinition.formID} 
 				formModel={formDefinition.model}/> , 
 			elem);
+		} else {
+			this.reportErrors(this.validator.errorMessageList);
 		}
 	}
 }
