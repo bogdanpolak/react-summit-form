@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import FormFieldText from "./FieldText.jsx";
 import FormFieldEmail from "./FieldEmail.jsx";
 import FormFieldExtTicketCounter from "./FieldExtTickets.jsx";
+import FieldAgreeGDPR from "./FieldAgreeGDPR.jsx";
+
 
 class Form extends Component{
   renderFormField (field) {
@@ -46,6 +48,11 @@ class Form extends Component{
           )
         case "section":
           return <div className="h6 form-section" key={key}>{row.title}:</div>
+        case "confirm-gdpr":
+          return <FieldAgreeGDPR 
+            key={key}
+            checkboxId={row.name} 
+            isRequired={row.isRequired} />
       }
     })
     return <form id={this.props.formID} className="needs-validation" noValidate>
