@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
-import FormFieldText from "./FormFieldText.jsx";
-import FormFieldEmail from "./FormFieldEmail.jsx";
-import FormFieldExtTicketCounter from "./FormFieldExtTicketCounter.jsx";
+import FormFieldText from "./FieldText.jsx";
+import FormFieldEmail from "./FieldEmail.jsx";
+import FormFieldExtTicketCounter from "./FieldExtTickets.jsx";
 
 class Form extends Component{
   renderFormField (field) {
