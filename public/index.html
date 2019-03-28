@@ -256,16 +256,17 @@
 					rowType: "section",
 					title: "Bilety" 
 				},{ 
-					rowType: "form-row",
-					fields: [{
-						fieldType: "ext-ticket-counter",
-						name: "tickets",
+					rowType: "ext-tickets",
+					ticketValue: 799,
+					select: {
+						id: "tickets",
 						caption: "Liczba biletów",
-						valueRange: {min:1, max:7},
-						ticketValue: 799,
-						totalName: "totalTicketValue",
-						totalCaption: "Koszt całkowity netto"
-					}]
+						range: {min:1, max:7},
+					},
+					total: {
+						id: "totalTicketValue",
+						caption: "Koszt całkowity netto"
+					}
 				},{ 
 					rowType: "section",
 					title: "Dane do faktury" 
