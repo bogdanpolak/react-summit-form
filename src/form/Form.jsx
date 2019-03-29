@@ -2,13 +2,6 @@ import React, {Component} from "react";
 import PropTypes from 'prop-types';
 
 /* ----------------------------------------------------------------
- * ---------------------------------------------------------------- */
-
-Array.range = (min, max) => (
-  Array.from (Array(max-min+1), (i, index) => min+index )
-)
-
-/* ----------------------------------------------------------------
  * FieldText
  * ---------------------------------------------------------------- */
 
@@ -44,6 +37,18 @@ FieldText.propTypes = {
  * FieldExtTickets
  * ---------------------------------------------------------------- */
 
+const SelectOptionsRange = ({min,max}) => (
+  // range(min,max) => [min, min+1, ... max]
+  Array.from (Array(max-min+1), (i, index) => min+index ).map (
+    (val) => (<option key={val} value="{val}">{val}</option>)
+  )
+)
+
+SelectOptionsRange.propTypes = {
+  min: PropTypes.number,
+  max: PropTypes.number
+}
+
 class FieldExtTickets extends Component {
   // static propTypes = {}
   constructor(props) {
@@ -74,12 +79,10 @@ class FieldExtTickets extends Component {
             name="{this.props.select.id}"
             onChange={this.selectOnChange.bind(this)} 
             value={this.state.value} >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
+            <SelectOptionsRange
+              min = {this.props.select.range.min}
+              max = {this.props.select.range.max}
+            />
           </select>
         </fieldset>
         <div className="col-sm-9 mt-3">
