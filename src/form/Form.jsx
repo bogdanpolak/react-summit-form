@@ -59,7 +59,6 @@ class FieldExtTickets extends Component {
     }
   }
   selectOnChange(ev){
-    console.log(this)
     this.setState({
       value: ev.target.value,
       totalValue: this.props.ticketValue * ev.target.value
