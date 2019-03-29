@@ -40,7 +40,7 @@ FieldText.propTypes = {
 const SelectOptionsRange = ({min,max}) => (
   // range(min,max) => [min, min+1, ... max]
   Array.from (Array(max-min+1), (i, index) => min+index ).map (
-    (val) => (<option key={val} value="{val}">{val}</option>)
+    (val) => (<option key={val} value={val}>{val}</option>)
   )
 )
 
@@ -59,6 +59,7 @@ class FieldExtTickets extends Component {
     }
   }
   selectOnChange(ev){
+    console.log(this)
     this.setState({
       value: ev.target.value,
       totalValue: this.props.ticketValue * ev.target.value
@@ -145,66 +146,75 @@ RowSection.propTypes = {
 /* ---------------------------------------------------------------- */
 /* ---------------------------------------------------------------- */
 
+const RowOneColumn =  ({ field }) => (
+  <div className="form-row">
+    <FieldText 
+      type = {field.fieldType}
+      id = {field.name}
+      caption = {field.caption}
+      feedback = {field.feedback}
+      isRequired = {field.isRequired}
+    />
+  </div>
+)
+RowOneColumn.propTypes = {
+  field: PropTypes.object
+}
+
+/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- */
+
+const RowTwoColumns =  ({ fields }) => (
+  <div  className="form-row">
+    {fields.map ( (field,idx)=> (
+      <div 
+        key={"col-"+(idx+1)}
+        className="col-sm-6" >
+        <FieldText 
+          type = {field.fieldType}
+          id = {field.name}
+          caption = {field.caption}
+          feedback = {field.feedback}
+          isRequired = {field.isRequired}
+        />
+      </div> 
+    ))}
+  </div>
+)
+RowTwoColumns.propTypes = {
+  fields: PropTypes.array
+}
+
+/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- */
+
 export default class Form extends Component{
 
   render() {
-    var rows = this.props.formModel.map((row,idx)=> {
-      var key = idx.toString();
+    const {formID, formModel} = this.props;
+    const renderRow = function (row,idx) {
+      const key = "row"+(idx+1)
       switch (row.rowType) {
         case "section":
           return <RowSection key={key}  title={row.title} />
         case "one-column":
-          return (
-            <div key={key} className="form-row">
-              <FieldText 
-                type = {row.field.fieldType}
-                id = {row.field.name}
-                caption = {row.field.caption}
-                feedback = {row.field.feedback}
-                isRequired = {row.field.isRequired}
-              />
-            </div>
-          )
+          return <RowOneColumn key={key} field={row.field} />
         case "two-columns":
-          return (
-            <div key={key} className="form-row">
-              {
-                row.fields.map ( (field,idx)=> (
-                  <div 
-                    key={idx.toString()}
-                    className="col-sm-6" >
-                    <FieldText 
-                      type = {field.fieldType}
-                      id = {field.name}
-                      caption = {field.caption}
-                      feedback = {field.feedback}
-                      isRequired = {field.isRequired}
-                    />
-                  </div> 
-                ))
-              }
-            </div>
-          )
+          return <RowTwoColumns key={key} fields={row.fields} />
         case "ext-tickets":
-          return (
-            <FieldExtTickets 
-              key={key}
-              ticketValue={row.ticketValue}
-              select={row.select}
-              total={row.total} />
-          )
+          return <FieldExtTickets key={key}
+            ticketValue={row.ticketValue}
+            select={row.select}
+            total={row.total} />
         case "confirm-gdpr":
-          return (
-            <FieldAgreeGDPR 
-              key={key}
-              checkboxId={row.name} 
-              isRequired={row.isRequired} />
-          )
+          return <FieldAgreeGDPR key={key}
+            checkboxId={row.name} 
+            isRequired={row.isRequired} />
       }
-    })
+    }
     return (
-      <form id={this.props.formID} className="needs-validation" noValidate>
-        {rows} 
+      <form id={formID} className="needs-validation" noValidate>
+        {formModel.map( (row,idx) => renderRow(row,idx) )}
       </form>
     )
   }
