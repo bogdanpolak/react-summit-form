@@ -215,7 +215,7 @@
 	<script src="../dist/bundle.js"></script>
 	<!-- *********************** -->
 	<script>
-		$( document ).ready(function() {
+		function renderTicketForm (sectionId) {
 			const ticketFormDefinition = {
 				formID: "form-ticket",
 				model : [{ 
@@ -315,7 +315,12 @@
 					isRequired: true
 				}]
 			}
-			reactFormRederer.generate("buy-ticket-section",ticketFormDefinition);	
+			reactFormRederer.generate(sectionId, ticketFormDefinition);	
+		}
+
+		renderTicketForm ("buy-ticket-section");
+
+		$( document ).ready(function() {
 		});
 	</script>
 	<!-- *********************** -->
