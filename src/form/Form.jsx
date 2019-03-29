@@ -1,29 +1,37 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
 
-/* ---------------------------------------------------------------- */
-/* ---------------------------------------------------------------- */
+/* ----------------------------------------------------------------
+ * ---------------------------------------------------------------- */
 
-function FieldText({ type, id, caption, feedback, isRequired }) {
-  return (
-    <fieldset className="mt-1 w-100">
-      <label 
-        className="mt-2 m-0" 
-        htmlFor={id}>
-        {caption}
-      </label>
-      <input 
-        type={type}
-        className="form-control" 
-        id={id} 
-        name={id} 
-        required={isRequired} />
-      <div className="invalid-feedback">
-        {feedback}
-      </div>
-    </fieldset>
-  );
-}
+Array.range = (min, max) => (
+  Array.from (Array(max-min+1), (i, index) => min+index )
+)
+
+/* ----------------------------------------------------------------
+ * FieldText
+ * ---------------------------------------------------------------- */
+
+const FieldText = ({ type, id, caption, feedback, isRequired }) => (
+  <fieldset className="mt-1 w-100">
+    <label 
+      className="mt-2 m-0" 
+      htmlFor={id}>
+      {caption}
+    </label>
+    <input 
+      type={type}
+      className="form-control" 
+      id={id} 
+      name={id} 
+      required={isRequired} />
+    <div className="invalid-feedback">
+      {feedback}
+    </div>
+  </fieldset>
+)
+
+
 FieldText.propTypes = {
   type: PropTypes.oneOf(['text','email']),
   id: PropTypes.string,
@@ -32,15 +40,9 @@ FieldText.propTypes = {
   isRequired: PropTypes.bool,
 }
 
-
-/*
-class FieldText extends Component{
-  render() {
-  }
-}
-*/
-/* ---------------------------------------------------------------- */
-/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- *
+ * FieldExtTickets
+ * ---------------------------------------------------------------- */
 
 class FieldExtTickets extends Component {
   // static propTypes = {}
@@ -72,7 +74,7 @@ class FieldExtTickets extends Component {
             name="{this.props.select.id}"
             onChange={this.selectOnChange.bind(this)} 
             value={this.state.value} >
-            <option defaultValue="1">1</option>
+            <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
@@ -104,31 +106,38 @@ FieldExtTickets.propTypes = {
 /* ---------------------------------------------------------------- */
 /* ---------------------------------------------------------------- */
 
-class FieldAgreeGDPR extends Component{
-  render() {
-    return (
-      <div className="form-check mt-4">
-        <input className="form-check-input" 
-          type="checkbox" id={this.props.checkboxId}  
-          name={this.props.checkboxId} 
-          required={this.props.isRequired} />
-        <label className="form-check-label" htmlFor={this.props.checkboxId}>
-          Zgoda na przetwarzanie danych.
-        </label>
-        <div className="ml-6 invalid-feedback mb-2">
-          Pole musi zostać zaznaczone. Bez zgody na przetwarzanie danych osobowych nie możemy przyjać Państwa rejestracji.
-        </div>
-        <div className="ml-6 small">
-          Wyrażam zgodę na przetwarzanie moich danych osobowych w celach marketingowych. Wyrażam zgodę na otrzymywanie od BSC Polska Sp. z o.o, informacji handlowych dotyczących produktów i usług oferowanych przez firmę. Zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (RODO/GDPR).
-        </div>
-      </div>
-    );
-  }
-}
+const FieldAgreeGDPR = ({checkboxId, isRequired}) => (
+  <div className="form-check mt-4">
+    <input className="form-check-input" 
+      type="checkbox" id={checkboxId}  
+      name={checkboxId} 
+      required={isRequired} />
+    <label className="form-check-label" htmlFor={checkboxId}>
+      Zgoda na przetwarzanie danych.
+    </label>
+    <div className="ml-6 invalid-feedback mb-2">
+      Pole musi zostać zaznaczone. Bez zgody na przetwarzanie danych osobowych nie możemy przyjać Państwa rejestracji.
+    </div>
+    <div className="ml-6 small">
+      Wyrażam zgodę na przetwarzanie moich danych osobowych w celach marketingowych. Wyrażam zgodę na otrzymywanie od BSC Polska Sp. z o.o, informacji handlowych dotyczących produktów i usług oferowanych przez firmę. Zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (RODO/GDPR).
+    </div>
+  </div>
+)
+
 FieldAgreeGDPR.propTypes = {
   checkboxId: PropTypes.string,
   isRequired: PropTypes.bool,
 };
+
+/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- */
+
+const RowSection = ({title}) => (
+  <div className="h6 form-section">{title}</div>
+)
+RowSection.propTypes = {
+  title: PropTypes.string
+}
 
 /* ---------------------------------------------------------------- */
 /* ---------------------------------------------------------------- */
@@ -140,11 +149,7 @@ export default class Form extends Component{
       var key = idx.toString();
       switch (row.rowType) {
         case "section":
-          return (
-            <div key={key} className="h6 form-section"> 
-              {row.title}:
-            </div>
-          )
+          return <RowSection key={key}  title={row.title} />
         case "one-column":
           return (
             <div key={key} className="form-row">
@@ -207,3 +212,4 @@ Form.propTypes = {
   formID: PropTypes.string,
   formModel: PropTypes.array,
 };
+
